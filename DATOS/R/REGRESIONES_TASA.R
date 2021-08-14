@@ -81,3 +81,6 @@ ggplot(df_sem20, aes(x = tasa_max_contagios, y = var_salidas)) +
              alpha = 0.5,
              size = 2) +
   geom_smooth(method = 'lm')
+
+
+#cambio de prueba

@@ -26,8 +26,10 @@ ggplot(df_sem20, aes(x = tasa_max_contagios, y = SEMANA_Entro)) +
              size = 2)
 
 ##CORRPLOT
+
 corr_sem20 = cor(df_sem20[,4:21])
 corrplot(corr_sem20,method = "pie", type = "upper", tl.cex = 0.7, number.cex = 0.6)
+
 
 ####Regresiones####
 ##tasa m?xima
@@ -82,5 +84,14 @@ ggplot(df_sem20, aes(x = tasa_max_contagios, y = var_salidas)) +
              size = 2) +
   geom_smooth(method = 'lm')
 
+######## regresiones definitivas 
 
-#cambio de prueba
+
+r1<- lm(log(tasa_max_contagios) ~ SEMANA_Entro + DENSIDAD + var_salidas , data = df_sem20)
+summary(r1)
+
+
+r2<- lm(log(tasa_max_contagios) ~ SEMANA_Entro + P_HACINAMIENTO_C + var_salidas , data = df_sem20)
+summary(r2)
+
+

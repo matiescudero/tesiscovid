@@ -94,4 +94,8 @@ summary(r1)
 r2<- lm(log(tasa_max_contagios) ~ SEMANA_Entro + P_HACINAMIENTO_C + var_salidas , data = df_sem20)
 summary(r2)
 
+r3<- lm(tasa_max_contagios~ SEMANA_Entro + DENSIDAD + var_salidas , data = df_sem20)
+summary(r3)
 
+r4<- lm(tasa_max_contagios ~ SEMANA_Entro + P_HACINAMIENTO_C + var_salidas , data = df_sem20)
+summary(r4)

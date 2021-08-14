@@ -2,7 +2,7 @@ library(maptools)
 library(spatialreg)
 library(plyr)
 library(spdep)
-shp=readShapePoly("DATOS/SHP/COMUNAS_PAPER.shp")
+shp=readShapePoly("DATOS/SHP/COMUNAS_PAPER/COMUNAS_PAPER.shp")
 shape=shp
 shape@data = join(shape@data,df_sem20, by = "COD_COM")
 W = poly2nb(shape)

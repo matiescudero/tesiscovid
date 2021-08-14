@@ -4,7 +4,7 @@ library(corrplot)
 library(MASS)
 
 #Se lee el archivo csv
-covid_df <- read_csv("C:/Users/Usuario/Desktop/UNIVERSIDAD/Investigacion/Datos/Csv/covid_table1008.csv")
+covid_df <- read_csv("DATOS/CSV/covid_table1008.csv")
 
 ##DFS alternativos
 #df con semanas de inicio igual o menor a 24

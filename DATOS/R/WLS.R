@@ -13,6 +13,15 @@ summary(r1)
 r2 = lm(tasa_max_contagios ~ var_salidas + P_HACINAMIENTO_C, data = df_sem20)
 summary(r2)
 
+
+#Plot de residuos
+#create residual vs. fitted plot
+plot(fitted(r1), resid(r1), xlab='Fitted Values', ylab='Residuals')
+
+#add a horizontal line at 0 
+abline(0,0)
+
+
 #Test de heterocedasticidad
 bptest(r1)
 bptest(r2)

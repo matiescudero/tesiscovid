@@ -1,5 +1,6 @@
 library(readr)
 library(lmtest)
+library(car)
 
 #Se lee el df
 covid_df <- read_csv("DATOS/CSV/covid_table1008.csv")
@@ -23,6 +24,11 @@ abline(0,0)
 
 
 #Test de heterocedasticidad
+##Breusch-Pagan
 bptest(r1)
 bptest(r2)
+
+##ncvTest
+ncvTest(r1)
+ncvTest(r2)
 

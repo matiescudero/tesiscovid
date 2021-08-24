@@ -20,10 +20,12 @@ ggplot(covid_df, aes(x = tasa_max_contagios, y = SEMANA_Entro)) +
              size = 2)
 
 #para df editado
-ggplot(df_sem20, aes(x = tasa_max_contagios, y = SEMANA_Entro)) +
+ggplot(df_sem20, aes(x = var_salidas, y = tasa_max_contagios)) +
   geom_point(color = "blue",
              alpha = 0.5,
-             size = 2)
+             size = 2) +
+  geom_smooth(method = "lm")
+
 
 ##CORRPLOT
 
@@ -96,3 +98,11 @@ summary(r3)
 
 r4<- lm(tasa_max_contagios ~ SEMANA_Entro + P_HACINAMIENTO_C + var_salidas , data = df_sem20)
 summary(r4)
+
+
+#Prueba 
+
+r3 = lm(tasa_max_contagios ~ var_salidas, data = df_sem20)
+summary(r3)
+
+plot(r3)

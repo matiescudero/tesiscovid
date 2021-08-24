@@ -47,18 +47,32 @@ df_ejemplo = confirmados_com[(confirmados_com$Comuna == 'San Ramon') |
                                (confirmados_com$Comuna == 'Recoleta') | 
                                (confirmados_com$Comuna == 'Maipu'), ]
 
+#Columna con información para graficar
+df_ejemplo$label_pob = paste("Población:", df_ejemplo$Poblacion)
+
 
 #Gráficos para casos nuevos
 ggplot(data=df_ejemplo, aes(x=Date,y=contagiados, group=1)) +
   geom_line(color="#69b3a2", size = 1) +
   labs(x = "Semana Epidemiológica", y = "Casos Nuevos") +
   facet_wrap(~Comuna, nc=2)+
-  theme(axis.text.x=element_text(size=7,angle=60, hjust=1)) 
+  theme(axis.text.x=element_text(size=7,angle=60, hjust=1)) +
+  geom_text(x = 29, y = 1600, aes(label = label_pob), 
+            data = df_ejemplo,
+            size = 4,
+            color = "gray30",
+            family = "sans")
 
 #Gráficos para tasas
-ggplot(data=df_ejemplo, aes(x=Date, y= Tasa_contagiados, group=1)) +
+ggplot(data=df_ejemplo, aes(x=Date,y=Tasa_contagiados, group=1)) +
   geom_line(color="#69b3a2", size = 1) +
   labs(x = "Semana Epidemiológica", y = "Tasa Casos Nuevos") +
   facet_wrap(~Comuna, nc=2)+
-  theme(axis.text.x=element_text(size=7,angle=60, hjust=1)) 
+  theme(axis.text.x=element_text(size=7,angle=60, hjust=1)) +
+  geom_text(x = 29, y = 800, aes(label = label_pob), 
+            data = df_ejemplo,
+            size = 4,
+            color = "gray30",
+            family = "sans")
+
 

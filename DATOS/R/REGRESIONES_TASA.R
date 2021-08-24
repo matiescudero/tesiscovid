@@ -11,6 +11,10 @@ covid_df <- read_csv("DATOS/CSV/covid_table1008.csv")
 df_sem24 = covid_df[covid_df$SEMANA_Entro <= 24,]
 df_sem20 = covid_df[covid_df$SEMANA_Entro <= 20,] #menor a 20
 
+#Se exporta el df como csv
+write.csv(df_sem20,"DATOS/CSV/df_sem20.csv", row.names=FALSE)
+
+
 ####An?lisis exploratorio####
 ###Scatter Plot
 ##Tasa contagios v/s Semana entro

@@ -16,4 +16,3 @@ indice_moran_r2<-lm.morantest(r2, W_list)
 indice_moran_r3<-lm.morantest(r3, W_list)
 indice_moran_r4<-lm.morantest(r4, W_list)
 
-write.csv(df_sem20,"")

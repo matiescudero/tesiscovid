@@ -27,7 +27,8 @@ summary(r3)
 
 #test AIC
 
-
+AIC(r1)
+AIC(r2)
 #test de normalidad de residuos 
 shapiro.test(r1$residuals)
 shapiro.test(r2$residuals)

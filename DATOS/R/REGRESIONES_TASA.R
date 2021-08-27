@@ -91,17 +91,21 @@ ggplot(df_sem20, aes(x = tasa_max_contagios, y = var_salidas)) +
   geom_smooth(method = 'lm')
 
 #######regresiones definitivas 
-r1<- lm(log(tasa_max_contagios) ~ SEMANA_Entro + DENSIDAD + var_salidas , data = df_sem20)
-summary(r1)
 
+
+r1<- lm(tasa_max_contagios~ SEMANA_Entro + P_HACINAMIENTO_C+ var_salidas , data = df_sem20)
+summary(r1)
 r2<- lm(log(tasa_max_contagios) ~ SEMANA_Entro + P_HACINAMIENTO_C + var_salidas , data = df_sem20)
 summary(r2)
 
 r3<- lm(tasa_max_contagios~ SEMANA_Entro + DENSIDAD + var_salidas , data = df_sem20)
 summary(r3)
-
-r4<- lm(tasa_max_contagios ~ SEMANA_Entro + P_HACINAMIENTO_C + var_salidas , data = df_sem20)
+r4<- lm(log(tasa_max_contagios) ~ SEMANA_Entro + DENSIDAD + var_salidas , data = df_sem20)
 summary(r4)
+
+
+
+
 
 
 #Prueba 
@@ -110,3 +114,40 @@ r3 = lm(tasa_max_contagios ~ var_salidas, data = df_sem20)
 summary(r3)
 
 plot(r3)
+
+#Histogramas de residuos 
+
+qplot(r1$residuals,
+      geom="histogram",
+      bins=8,
+      xlab="Residuos", 
+      ylab="Frecuencia",
+      fill=I("skyblue3"), 
+      col=I("black"))
+
+qplot(r2$residuals,
+      geom="histogram",
+      bins=8,
+      xlab="Residuos", 
+      ylab="Frecuencia",
+      fill=I("skyblue3"), 
+      col=I("black"))
+qplot(r3$residuals,
+      geom="histogram",
+     
+      bins=8,
+      xlab="Residuos", 
+      ylab="Frecuencia",
+      fill=I("skyblue3"), 
+      col=I("black"))
+
+qplot(r4$residuals,
+      geom="histogram",
+      
+      bins=8,
+      xlab="Residuos", 
+      ylab="Frecuencia",
+      fill=I("skyblue3"), 
+      col=I("black"))
+
+

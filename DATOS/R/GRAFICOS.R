@@ -96,3 +96,13 @@ ggplot(data=casos_gather_rm, aes(x=Date,y=contagiados, group=1)) +
   geom_line(color="#69b3a2", size = 1) +
   labs(x = "Semana Epidemiológica", y = "Casos Nuevos") +
   theme(axis.text.x=element_text(size=7,angle=60, hjust=1))
+
+
+#Histogramas multiples
+df_final <- read_csv("final.csv")
+
+ggplot(gather(df_final[,-c(1,2,3,4)]), aes(value)) + 
+  geom_histogram(bins =  8, color = "black", fill = "lightblue") + 
+  facet_wrap(~key, scales = 'free_x')  +
+  labs(x="", y = "Frecuencia")
+

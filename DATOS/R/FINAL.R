@@ -22,27 +22,27 @@ final = read_csv("final.csv")
 
 #Regresiones 
 
-r1<- lm(tasa_max ~ sem_cuar + p_hacina_c + IVS , data = final)
-summary(r1)
 
-r3<- lm(tasa_max ~ sem_cuar + densidad + IVS , data = final)
-summary(r3)
-
-r4 = lm(tasa_max ~ log(sem_cuar) + p_hacina_c + IVS , data = final)
-summary(r4)
+modelo1<- lm(tasa_max ~ sem_cuar + p_hacina_c + IVS , data = final)
+summary(modelo1)
+modelo2<- lm(tasa_max ~ sem_cuar + densidad + IVS , data = final)
+summary(modelo2)
+modelo3 = lm(tasa_max ~ log(sem_cuar) + p_hacina_c + IVS , data = final)
+summary(modelo3)
 
 
 #test AIC
 
-AIC(r1)
-AIC(r3)
-AIC(r4)
+AIC(modelo1)
+AIC(modelo2)
+AIC(modelo3)
 
 
 #test de normalidad de residuos 
-shapiro.test(r1$residuals)
-shapiro.test(r3$residuals)
-shapiro.test(r4$residuals)
+shapiro.test(modelo1$residuals)
+shapiro.test(modelo2$residuals)
+shapiro.test(modelo3$residuals)
+
 
 
 

@@ -1,6 +1,7 @@
 library(readr)
 library(lmtest)
 library(car)
+library(regclass)
 
 #Se lee el df
 
@@ -28,10 +29,14 @@ abline(0,0)
 
 #Test de heterocedasticidad
 ##po
-bptest(r1)
-bptest(r2)
+bp(modelo1)
+bptest(modelo2)
 
 ##ncvTest
-ncvTest(r1)
+ncvTest(modelo1)
 ncvTest(r2)
+
+#Test de multicolinenalidad
+vif(modelo1)
+
 

@@ -15,13 +15,15 @@ casos_covid = read_csv(url(url_file))
 casos_covid = casos_covid[(casos_covid$Region == 'Metropolitana'),]
 
 #Se dejan únicamente los gráficos para el 2020
-casos_covid = casos_covid[, -c(44:85)]
+casos_covid = casos_covid[, -c(44:86)]
 
 #Se renombran las columnas
 lista_semanas = colnames(casos_covid)[6:43] #Nombres de columnas a lista
 lista_semanas = gsub("^.{0,4}","SE",lista_semanas) #Cambio "2020" a "sE"
 colnames(casos_covid)[6:43] = lista_semanas #actualizacion de columnas
 
+#Se crea un df que se usara para hacer el grafico de casos para la rm
+casos_rm = casos_covid
 
 #Se transforma el formato del data frame para poder trabajarlo con librerías de series de tiempo
 casos_gather <- casos_covid %>%
@@ -75,3 +77,22 @@ ggplot(data=df_ejemplo, aes(x=Date,y=Tasa_contagiados, group=1)) +
             color = "gray30",
             family = "sans")
 
+##GRAFICO REGIONAL
+#Se eliminan columnas que no sirven
+casos_rm = casos_rm[, -c(2:5)]
+
+#Se añade una columna de totales
+casos_rm = rbind(casos_rm, data.frame(Region = "Total", t(colSums(casos_rm[, -1]))))
+
+#Se deja únicamente la fila de a region completa
+casos_rm = casos_rm[-c(1:53),]
+
+#transformación de formato
+casos_gather_rm <- casos_rm %>%
+  tidyr::gather(key = Date, value = contagiados, -Region)
+
+#Gráfico para la RM
+ggplot(data=casos_gather_rm, aes(x=Date,y=contagiados, group=1)) +
+  geom_line(color="#69b3a2", size = 1) +
+  labs(x = "Semana Epidemiológica", y = "Casos Nuevos") +
+  theme(axis.text.x=element_text(size=7,angle=60, hjust=1))

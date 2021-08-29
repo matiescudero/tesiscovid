@@ -1,17 +1,15 @@
-### Data de escenario 
-escenarios=df_sem20
+#se lee el csv
+library(readr)
+df_final = read_csv("final.csv")
 
-##regresion con log
-escenarios$esc_1_log= df_sem20$SEMANA_Entro*0.02791+ df_sem20$DENSIDAD*0.00001621+ df_sem20$var_salidas*0.01846 + 4.338
-##regresion
-escenarios$tasa_max_log= log(df_sem20$tasa_max_contagios)
-escenarios$esc_1=exp(escenarios$esc_1_log)
-escenarios$real_pred=escenarios$tasa_max_contagios-escenarios$esc_1
+#Se corre la regresión definitiva
+modelo = lm(tasa_max ~ sem_cuar + p_hacina_c + IVS , data = df_final)
+summary(modelo)
 
-##variacion de movilidad 80%
-escenarios$esc_2= df_sem20$SEMANA_Entro*0.02791+ df_sem20$DENSIDAD*0.00001621+ 80*0.01846 + 4.338
-escenarios$esc_2=exp(escenarios$esc_2)
+#tasa_max estimada
+df_final$tasa_est = -220.781 + 7.130*df_final$sem_cuar + 36.882*df_final$p_hacina_c + 8.368*df_final$IVS
 
-##variacion de movilidad
-escenarios$esc_3= df_sem20$SEMANA_Entro*0.02791+ df_sem20$DENSIDAD*0.00001621+ 40*0.01846 + 4.338
-escenarios$esc_3=exp(escenarios$esc_3)
+#Columnas para semana de entrada
+df_final$sem13 = 13
+
+#tasa_max si todas las comunas hubiesen ingresado a cuarentena en la semana 13

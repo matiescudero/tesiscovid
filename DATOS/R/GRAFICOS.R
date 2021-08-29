@@ -75,4 +75,3 @@ ggplot(data=df_ejemplo, aes(x=Date,y=Tasa_contagiados, group=1)) +
             color = "gray30",
             family = "sans")
 
-

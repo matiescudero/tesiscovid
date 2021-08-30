@@ -44,9 +44,21 @@ df_final$tasa_mov20 = -220.781 + 7.130*df_final$sem_cuar + 36.882*df_final$p_hac
 
 
 ####GRAFICOS####
-##grafico sem13
-hist(df_final$tasa_max, breaks=10, xlim=c(0,900), col=rgb(1,0,0,0.5), xlab="height", 
-     ylab="nbr of plants", main="distribution of height of 2 durum wheat varieties" )
 
-# Second with add=T to plot on top
-hist(df_final$tasa_mov40, breaks=6, xlim=c(0,900), col=rgb(0,0,1,0.5), add=T)
+##grafico sem13
+
+hist_tasasem13 <- ggplot(df_final, aes(x=x) ) +
+  geom_histogram( aes(x = tasa_max, y = ..density..), fill="#69b3a2", bins = 10 ) +
+  geom_label( aes(x=700, y=0.004, label="Máxima Tasa Real"), color="#69b3a2") +
+  geom_label( aes(x=700, y=0.003, label="Promedio: 468,37"), color="#69b3a2") +
+  geom_histogram( aes(x = tasa_sem13, y = -..density..), fill= "#404080", bins = 10) +
+  geom_label( aes(x=700, y=-0.003, label="Máxima Tasa Semana 13"), color="#404080") +
+  geom_label( aes(x=700, y=-0.004, label="Promedio: 435,73"), color="#404080") +
+  theme_ipsum() +
+  xlab("Contagiados cada 100.000 habitantes") +
+  ylab("Densidad")
+
+hist_tasasem13
+
+
+

@@ -35,12 +35,23 @@ df_final$tasa_sem13 = -220.781 + 7.130*df_final$sem13 + 36.882*df_final$p_hacina
 #tasa_max si todas las comunas hubiesen ingresado a cuarentena en la semana 13
 df_final$tasa_sem20 = -220.781 + 7.130*df_final$sem20 + 36.882*df_final$p_hacina_c + 8.368*df_final$IVS
 
+#Variación porcentual tasa
+df_final$var_tasa_sem13 = ((df_final$tasa_sem13 - df_final$tasa_max)/df_final$tasa_max)*100
+df_final$var_tasa_sem20 = ((df_final$tasa_sem20 - df_final$tasa_max)/df_final$tasa_max)*100
+
 ##MOVILIDAD
 df_final$tasa_mov80 = -220.781 + 7.130*df_final$sem_cuar + 36.882*df_final$p_hacina_c + 8.368*df_final$mov80
 df_final$tasa_mov40 = -220.781 + 7.130*df_final$sem_cuar + 36.882*df_final$p_hacina_c + 8.368*df_final$mov40
 df_final$tasa_mov20 = -220.781 + 7.130*df_final$sem_cuar + 36.882*df_final$p_hacina_c + 8.368*df_final$mov20
 
+#Variación porcentual tasa
+df_final$var_tasa_mov80 = ((df_final$tasa_mov80 - df_final$tasa_max)/df_final$tasa_max)*100
+df_final$var_tasa_mov40 = ((df_final$tasa_mov40 - df_final$tasa_max)/df_final$tasa_max)*100
+df_final$var_tasa_mov20 = ((df_final$tasa_mov20 - df_final$tasa_max)/df_final$tasa_max)*100
 
+
+#Se exporta a csv para mapearlo en QGIS
+write.csv(df_final,"DATOS/CSV/escenarios.csv", row.names=FALSE)
 
 
 ####GRAFICOS####

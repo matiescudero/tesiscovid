@@ -1,4 +1,5 @@
 library(reshape)
+library(readr)
 library(corrplot)
 library(MASS)
 
@@ -29,20 +30,28 @@ modelo2<- lm(tasa_max ~ sem_cuar + densidad + IVS , data = final)
 summary(modelo2)
 modelo3 = lm(tasa_max ~ log(sem_cuar) + p_hacina_c + IVS , data = final)
 summary(modelo3)
+modelo4 = lm(log(tasa_max) ~ sem_cuar + p_hacina_c + IVS , data = final)
 
+modelo5 = lm(log(tasa_max) ~ sem_cuar + densidad + IVS , data = final)
 
+modelo6 = lm(log(tasa_max) ~ log(sem_cuar) + p_hacina_c + IVS , data = final)
 #test AIC
 
 AIC(modelo1)
 AIC(modelo2)
 AIC(modelo3)
+AIC(modelo4)
+AIC(modelo5)
+AIC(modelo6)
 
 
 #test de normalidad de residuos 
 shapiro.test(modelo1$residuals)
 shapiro.test(modelo2$residuals)
 shapiro.test(modelo3$residuals)
-
+shapiro.test(modelo4$residuals) #hacinamiento
+shapiro.test(modelo5$residuals) #densidad
+shapiro.test(modelo6$residuals)
 
 
 

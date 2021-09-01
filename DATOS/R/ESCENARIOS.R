@@ -3,6 +3,7 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(hrbrthemes)
+library(viridis)
 
 
 #se lee el csv
@@ -71,5 +72,44 @@ hist_tasasem13 <- ggplot(df_final, aes(x=x) ) +
 
 hist_tasasem13
 
+hist_tasasem20 <- ggplot(df_final, aes(x=x) ) +
+  geom_histogram( aes(x = tasa_max, y = ..density..), fill="#69b3a2", bins = 10 ) +
+  geom_label( aes(x=700, y=0.004, label="Máxima Tasa Real"), color="#69b3a2") +
+  geom_label( aes(x=700, y=0.003, label="Promedio: 468,37"), color="#69b3a2") +
+  geom_histogram( aes(x = tasa_sem20, y = -..density..), fill= "#404080", bins = 10) +
+  geom_label( aes(x=700, y=-0.003, label="Máxima Tasa Semana 20"), color="#404080") +
+  geom_label( aes(x=700, y=-0.004, label="Promedio: 485,64"), color="#404080") +
+  theme_ipsum() +
+  xlab("Contagiados cada 100.000 habitantes") +
+  ylab("Densidad")
+
+hist_tasasem20
+
+hist_tasamov80 <- ggplot(df_final, aes(x=x) ) +
+  geom_histogram( aes(x = tasa_max, y = ..density..), fill="#69b3a2", bins = 10 ) +
+  geom_label( aes(x=700, y=0.004, label="Máxima Tasa Real"), color="#69b3a2") +
+  geom_label( aes(x=700, y=0.003, label="Promedio: 468,37"), color="#69b3a2") +
+  geom_histogram( aes(x = tasa_mov80, y = -..density..), fill= "#404080", bins = 15) +
+  geom_label( aes(x=700, y=-0.003, label="Máxima Tasa IVS = 80%"), color="#404080") +
+  geom_label( aes(x=700, y=-0.004, label="Promedio: 614,03"), color="#404080") +
+  theme_ipsum() +
+  xlab("Contagiados cada 100.000 habitantes") +
+  ylab("Densidad")
+
+hist_tasamov80
 
 
+
+df_tasasem13 = gather(df_final[,c(11,19)])
+
+df_tasasem13 %>%
+  ggplot( aes(x=key, y=value, fill=key)) +
+  geom_boxplot() +
+  scale_fill_viridis(discrete = TRUE, alpha=0.6, option="A") +
+  theme_ipsum() +
+  theme(
+    legend.position="none",
+    plot.title = element_text(size=11)
+  ) +
+  ggtitle("Basic boxplot") +
+  xlab("")

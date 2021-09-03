@@ -25,5 +25,6 @@ indice_moran_r4 <- lm.morantest(modelo3, W_list)
 sar_modelo1 = lagsarlm(formula =log(tasa_max) ~ sem_cuar + p_hacina_c + IVS , data = shape@data, listw = W_list)
 sar_modelo2 = lagsarlm(formula = tasa_max ~ sem_cuar + densidad + IVS , data = shape@data, listw = W_list)
 sar_modelo3 = lagsarlm(formula = tasa_max ~ log(sem_cuar) + p_hacina_c + IVS , data = shape@data, listw = W_list)
+sar_modelo4 = lagsarlm(formula = log(tasa_max) ~ sem_cuar + densidad + IVS , data = shape@data, listw = W_list)
 
 

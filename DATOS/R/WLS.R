@@ -37,6 +37,13 @@ ncvTest(modelo1)
 ncvTest(r2)
 
 #Test de multicolinenalidad
-vif(modelo1)
+a1=vif(modelo1)
+a2=vif(modelo2)
+a3=vif(modelo3)
+#tolerancia
+tolerancia1=1/a1
+tolerancia2=1/a2
+tolerancia3=1/a3
+
 
 

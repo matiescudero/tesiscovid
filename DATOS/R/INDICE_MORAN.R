@@ -47,3 +47,38 @@ sar_modelo4 = lagsarlm(formula = log(tasa_max) ~ sem_cuar + densidad + IVS , dat
 
 
 
+<<<<<<< HEAD
+=======
+####PRUEBA CON MATRICES####
+
+###MODELO SAR 1
+###TASA ESTIMADA
+##ßX
+#Beta
+B = unlist(as.numeric(sar_modelo1$coefficients)) #Cambiar según el modelo que se busque
+
+#Matriz con valores de X, cambiarla según los escenarios
+X = matrix(c(c(rep(1,38)), final$sem_cuar, final$p_hacina, final$IVS), ncol = 4)
+
+#multiplicación entre matriz de X y vector de betas
+XB = X %*% B  #vector con que contiene los y estimados sin agregar la componente espacial
+
+
+##(I - pW)
+I = diag(38)
+
+rho = as.numeric(sar_modelo1$rho) #Cambiar según modelo
+
+W_mat = nb2mat(W)
+
+IPW = I - rho*W_mat
+
+IPW_inv = solve(IPW)
+
+IPWinv_XB =   IPW_inv %*% exp(XB)
+
+##ESCENARIOS
+
+final$tasa_est = IPWinv_XB
+
+>>>>>>> 6c4fd37ea88e7c453407ee0935280baab62d4350

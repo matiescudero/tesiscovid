@@ -52,20 +52,14 @@ XB = X %*% B  #vector con que contiene los y estimados sin agregar la componente
 
 
 ##(I - pW)
-I = diag(38)
-
+I = diag(38) #Matriz identidad
 rho = as.numeric(sar_modelo1$rho) #Cambiar según modelo
-
 W_mat = nb2mat(W)
-
 IPW = I - rho*W_mat
-
 IPW_inv = solve(IPW)
-
 IPWinv_XB =   IPW_inv %*% exp(XB)
 
 ##ESCENARIOS
-
 final$tasa_est = IPWinv_XB
 
 

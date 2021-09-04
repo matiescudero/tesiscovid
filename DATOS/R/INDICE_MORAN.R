@@ -2,18 +2,17 @@ library(maptools)
 library(readr)
 library(plyr)
 library(spdep)
-<<<<<<< HEAD
+
 shp=readShapePoly("DATOS/SHP/COMUNAS_PAPER/COMUNAS_PAPER.shp")
 shape=shp
 shape@data = join(shape@data,final, by = "COD_COM")
-=======
+
 
 final = read_csv("final.csv")
 
 shp = readShapePoly("DATOS/SHP/COMUNAS_PAPER/COMUNAS_PAPER.shp")
 shape = shp
 shape@data = join(shape@data, final, by = "COD_COM")
->>>>>>> 93c2f8e5fdbb6bf0fa6a20245b24aeb926da134e
 W = poly2nb(shape)
 W_list = nb2listw(W)
 
@@ -37,9 +36,6 @@ sar_modelo3 = lagsarlm(formula = tasa_max ~ log(sem_cuar) + p_hacina_c + IVS , d
 sar_modelo4 = lagsarlm(formula = log(tasa_max) ~ sem_cuar + densidad + IVS , data = shape@data, listw = W_list)
 
 
-
-<<<<<<< HEAD
-=======
 ####PRUEBA CON MATRICES####
 
 ###MODELO SAR 1
@@ -72,4 +68,4 @@ IPWinv_XB =   IPW_inv %*% exp(XB)
 
 final$tasa_est = IPWinv_XB
 
->>>>>>> 6c4fd37ea88e7c453407ee0935280baab62d4350
+

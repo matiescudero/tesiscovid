@@ -21,37 +21,40 @@ corrplot(corr_final,method = "pie", type = "upper", tl.cex = 0.7, number.cex = 0
 
 final = read_csv("final.csv")
 
-#Regresiones 
+#Regresiones lm
+
+modelo1 <- lm(tasa_max ~ sem_cuar + p_hacina_c + IVS , data = shape@data)
+modelo2 <- lm(tasa_max ~ sem_cuar + densidad + IVS , data = shape@data)
+modelo3 <- lm(tasa_max ~ log(sem_cuar) + p_hacina_c + IVS , data = shape@data)
+
+#Regresiones espaciales
+
+sar_modelo1 = lagsarlm(formula =tasa_max ~ sem_cuar + p_hacina_c + IVS , data = shape@data, listw = W_list)
+sar_modelo2 = lagsarlm(formula = tasa_max ~ sem_cuar + densidad + IVS , data = shape@data, listw = W_list)
+sar_modelo3 = lagsarlm(formula = tasa_max ~ log(sem_cuar) + p_hacina_c + IVS , data = shape@data, listw = W_list)
 
 
-modelo1<- lm(tasa_max ~ sem_cuar + p_hacina_c + IVS , data = final)
-summary(modelo1)
-modelo2<- lm(tasa_max ~ sem_cuar + densidad + IVS , data = final)
-summary(modelo2)
-modelo3 = lm(tasa_max ~ log(sem_cuar) + p_hacina_c + IVS , data = final)
-summary(modelo3)
-modelo4 = lm(log(tasa_max) ~ sem_cuar + p_hacina_c + IVS , data = final)
 
-modelo5 = lm(log(tasa_max) ~ sem_cuar + densidad + IVS , data = final)
-
-modelo6 = lm(log(tasa_max) ~ log(sem_cuar) + p_hacina_c + IVS , data = final)
 #test AIC
 
 AIC(modelo1)
 AIC(modelo2)
 AIC(modelo3)
-AIC(modelo4)
-AIC(modelo5)
-AIC(modelo6)
+
+AIC(sar_modelo1)
+AIC(sar_modelo2)
+AIC(sar_modelo3)
+
+
 
 
 #test de normalidad de residuos 
 shapiro.test(modelo1$residuals)
 shapiro.test(modelo2$residuals)
 shapiro.test(modelo3$residuals)
-shapiro.test(modelo4$residuals) #hacinamiento
-shapiro.test(modelo5$residuals) #densidad
-shapiro.test(modelo6$residuals)
 
+shapiro.test(sar_modelo1$residuals)
+shapiro.test(sar_modelo2$residuals)
+shapiro.test(sar_modelo3$residuals)
 
 

@@ -44,7 +44,7 @@ IPWinv_XB =   IPW_inv %*% XB
 
 ##Cálculo tasa estimada según modelo
 final$tasa_est = IPWinv_XB
-final$error = (final$tasa_max - final$tasa_est)/final$tasa_est * 100
+final$error = abs((final$tasa_max - final$tasa_est)/final$tasa_est * 100)
 
 #Columnas para semana de entrada
 final$sem13 = 13

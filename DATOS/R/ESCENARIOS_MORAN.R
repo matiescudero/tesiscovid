@@ -4,6 +4,7 @@ library(plyr)
 library(hrbrthemes)
 library(viridis)
 library(spdep)
+library(maptools)
 
 #Se lee el archivo csv
 final = read_csv("final.csv")
@@ -105,3 +106,68 @@ final$var_tasa_mov20 = ((final$tasa_mov20 - final$tasa_max)/final$tasa_max)*100
 #Se exporta la tabla a csv
 write.csv(final, 'DATOS/CSV/escenarios_moran.csv', row.names = FALSE)
 
+
+
+####Gráficos####
+
+final <- read_csv("DATOS/CSV/escenarios_moran.csv")
+
+##grafico sem13
+
+hist_tasasem13 <- ggplot(final, aes(x=x) ) +
+  geom_histogram( aes(x = tasa_max, y = ..density..), fill="#69b3a2", bins = 10 ) +
+  geom_label( aes(x=700, y=0.004, label="Máxima Tasa Real"), color="#69b3a2") +
+  geom_label( aes(x=700, y=0.003, label="Promedio: 468,37"), color="#69b3a2") +
+  geom_histogram( aes(x = tasa_sem13, y = -..density..), fill= "#404080", bins = 10) +
+  geom_label( aes(x=700, y=-0.003, label="Máxima Tasa Estimada\n Semana 13"), color="#404080") +
+  geom_label( aes(x=700, y=-0.0045, label="Promedio: 427,29"), color="#404080") +
+  theme_ipsum() +
+  xlab("Contagiados cada 100.000 habitantes") +
+  ylab("Densidad")
+
+hist_tasasem13
+
+##grafico sem20
+
+hist_tasasem20 <- ggplot(final, aes(x=x) ) +
+  geom_histogram( aes(x = tasa_max, y = ..density..), fill="#69b3a2", bins = 10 ) +
+  geom_label( aes(x=700, y=0.004, label="Máxima Tasa Real"), color="#69b3a2") +
+  geom_label( aes(x=700, y=0.003, label="Promedio: 468,37"), color="#69b3a2") +
+  geom_histogram( aes(x = tasa_sem20, y = -..density..), fill= "#404080", bins = 10) +
+  geom_label( aes(x=700, y=-0.003, label="Máxima Tasa Estimada\n Semana 20"), color="#404080") +
+  geom_label( aes(x=700, y=-0.0045, label="Promedio: 493,2"), color="#404080") +
+  theme_ipsum() +
+  xlab("Contagiados cada 100.000 habitantes") +
+  ylab("Densidad")
+
+hist_tasasem20
+
+##grafico mov80
+
+hist_tasamov80 <- ggplot(final, aes(x=x) ) +
+  geom_histogram( aes(x = tasa_max, y = ..density..), fill="#69b3a2", bins = 10 ) +
+  geom_label( aes(x=700, y=0.004, label="Máxima Tasa Real"), color="#69b3a2") +
+  geom_label( aes(x=700, y=0.0025, label="Promedio: 468,37"), color="#69b3a2") +
+  geom_histogram( aes(x = tasa_mov80, y = -..density..), fill= "#404080", bins = 20) +
+  geom_label( aes(x=300, y=-0.003, label="Máxima Tasa Estimada\n IVS = 80%"), color="#404080") +
+  geom_label( aes(x=300, y=-0.005, label="Promedio: 629,84"), color="#404080") +
+  theme_ipsum() +
+  xlab("Contagiados cada 100.000 habitantes") +
+  ylab("Densidad")
+
+hist_tasamov80
+
+##grafico mov40
+
+hist_tasamov40 <- ggplot(final, aes(x=x) ) +
+  geom_histogram( aes(x = tasa_max, y = ..density..), fill="#69b3a2", bins = 8 ) +
+  geom_label( aes(x=700, y=0.005, label="Máxima Tasa Real"), color="#69b3a2") +
+  geom_label( aes(x=700, y=0.0035, label="Promedio: 468,37"), color="#69b3a2") +
+  geom_histogram( aes(x = tasa_mov40, y = -..density..), fill= "#404080", bins = 20) +
+  geom_label( aes(x=700, y=-0.003, label="Máxima Tasa Estimada\n IVS = 40%"), color="#404080") +
+  geom_label( aes(x=700, y=-0.006, label="Promedio: 259,93"), color="#404080") +
+  theme_ipsum() +
+  xlab("Contagiados cada 100.000 habitantes") +
+  ylab("Densidad")
+
+hist_tasamov40

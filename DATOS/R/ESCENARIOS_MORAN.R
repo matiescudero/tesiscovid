@@ -171,3 +171,6 @@ hist_tasamov40 <- ggplot(final, aes(x=x) ) +
   ylab("Densidad")
 
 hist_tasamov40
+
+df_error = final[final$error >= 26.7,]
+df_bueno = final[final$error <= 15,]

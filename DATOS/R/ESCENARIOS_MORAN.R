@@ -5,6 +5,7 @@ library(hrbrthemes)
 library(viridis)
 library(spdep)
 library(maptools)
+library(tidyverse)
 
 #Se lee el archivo csv
 final = read_csv("final.csv")
@@ -112,6 +113,32 @@ write.csv(final, 'DATOS/CSV/escenarios_moran.csv', row.names = FALSE)
 
 final <- read_csv("DATOS/CSV/escenarios_moran.csv")
 
+
+#Histograma error
+hist(final$error, 
+     col = "#69b3a2",
+     main = "Histograma de Errores Porcentuales del Modelo",
+     xlab = "Error Porcentual (%)",
+     ylab = "Frecuencia")
+
+abline(v = c(median(final$error), mean(final$error)),                     
+       col = c("red","blue"),
+       lty = c(3,3),
+       lwd = c(3,3))
+
+text(x = 30,  
+     y = 13,
+     paste("Mediana =", round(median(final$error), 4)),
+     col = "red",
+     cex = 1)
+
+text(x = 30,  
+     y = 11,
+     paste("Promedio =", round(mean(final$error), 3)),
+     col = "blue",
+     cex = 1)
+
+
 ##grafico sem13
 
 hist_tasasem13 <- ggplot(final, aes(x=x) ) +
@@ -172,5 +199,19 @@ hist_tasamov40 <- ggplot(final, aes(x=x) ) +
 
 hist_tasamov40
 
+
+#GRAFICOS PARA DFS CON MENOR ERROR
 df_error = final[final$error >= 26.7,]
-df_bueno = final[final$error <= 15,]
+df_bueno = final[final$error <= 14.5,]
+
+ggplot(df_bueno, aes(x=sem_cuar, y = var_tasa_sem13)) + 
+  geom_point(
+    color="blue",
+    fill="#69b3a2",
+    shape= 21,
+    alpha=0.6,
+    size=5,
+    stroke = 1
+  ) + 
+  xlab("Semana de Ingreso a Cuarentena") +
+  ylab("Variación Tasa Máxima Estimada")

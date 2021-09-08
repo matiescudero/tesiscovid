@@ -113,7 +113,7 @@ write.csv(final, 'DATOS/CSV/escenarios_moran.csv', row.names = FALSE)
 
 final <- read_csv("DATOS/CSV/escenarios_moran.csv")
 
-
+final$error_n = abs(final$tasa_max - final$tasa_max)
 #Histograma error
 hist(final$error, 
      col = "#69b3a2",

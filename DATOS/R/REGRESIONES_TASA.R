@@ -18,10 +18,20 @@ write.csv(df_sem20,"DATOS/CSV/df_sem20.csv", row.names=FALSE)
 ####An?lisis exploratorio####
 ###Scatter Plot
 ##Tasa contagios v/s Semana entro
-ggplot(covid_df, aes(x = tasa_max_contagios, y = SEMANA_Entro)) +
+ggplot(covid_df, aes(x = SEMANA_Entro, y = tasa_max_contagios)) +
   geom_point(color = "blue",
              alpha = 0.5,
-             size = 2)
+             size = 2) +
+  xlab("Semana de Ingreso a Cuarentena") +
+  ylab("Máxima Tasa de Contagios")
+
+
+ggplot(df_sem20, aes(x = SEMANA_Entro, y = tasa_max_contagios)) +
+  geom_point(color = "blue",
+             alpha = 0.5,
+             size = 2) +
+  xlab("Semana de Ingreso a Cuarentena") +
+  ylab("Máxima Tasa de Contagios")
 
 #para df editado
 ggplot(df_sem20, aes(x = var_salidas, y = tasa_max_contagios)) +

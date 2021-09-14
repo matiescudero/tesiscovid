@@ -3,11 +3,6 @@ library(readr)
 library(plyr)
 library(spdep)
 
-shp=readShapePoly("DATOS/SHP/COMUNAS_PAPER/COMUNAS_PAPER.shp")
-shape=shp
-shape@data = join(shape@data,final, by = "COD_COM")
-
-
 final = read_csv("final.csv")
 
 shp = readShapePoly("DATOS/SHP/COMUNAS_PAPER/COMUNAS_PAPER.shp")
@@ -35,7 +30,10 @@ sar_modelo1 = lagsarlm(formula =tasa_max ~ sem_cuar + p_hacina_c + IVS , data = 
 sar_modelo2 = lagsarlm(formula = tasa_max ~ sem_cuar + densidad + IVS , data = shape@data, listw = W_list)
 sar_modelo3 = lagsarlm(formula = tasa_max ~ log(sem_cuar) + p_hacina_c + IVS , data = shape@data, listw = W_list)
 
-
+#Indice moran regresiones SAR
+indice_moran_sar1 <- lm.morantest(sar_modelo1, W_list)
+indice_moran_r2<- lm.morantest(modelo2, W_list)
+indice_moran_r3 <- lm.morantest(modelo3, W_list)
 
 ####PRUEBA CON MATRICES####
 

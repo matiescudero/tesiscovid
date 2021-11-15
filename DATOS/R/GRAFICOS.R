@@ -15,7 +15,7 @@ casos_covid = read_csv(url(url_file))
 casos_covid = casos_covid[(casos_covid$Region == 'Metropolitana'),]
 
 #Se dejan únicamente los gráficos para el 2020
-casos_covid = casos_covid[, -c(44:86)]
+casos_covid = casos_covid[, -c(44:97)]
 
 #Se renombran las columnas
 lista_semanas = colnames(casos_covid)[6:43] #Nombres de columnas a lista
@@ -50,14 +50,20 @@ df_ejemplo = confirmados_com[(confirmados_com$Comuna == 'San Ramon') |
                                (confirmados_com$Comuna == 'Maipu'), ]
 
 #Columna con información para graficar
-df_ejemplo$label_pob = paste("Población:", df_ejemplo$Poblacion)
+df_ejemplo$label_pob = paste("Población:", format(df_ejemplo$Poblacion,
+                                                  decimal.mark = ",",
+                                                  big.mark = "."))
 
 
 #Gráficos para casos nuevos
 ggplot(data=df_ejemplo, aes(x=Date,y=contagiados, group=1)) +
   geom_line(color="#69b3a2", size = 1) +
   labs(x = "Semana Epidemiológica", y = "Casos Nuevos") +
-  facet_wrap(~Comuna, nc=2)+
+  facet_wrap(~Comuna, nc=2,
+             labeller = as_labeller(c(`Maipu` = "Maipú",
+                                      `La Granja` = "La Granja",
+                                      `Recoleta` = "Recoleta",
+                                      `San Ramon`= "San Ramón")))+
   theme(axis.text.x=element_text(size=7,angle=60, hjust=1)) +
   geom_text(x = 29, y = 1600, aes(label = label_pob), 
             data = df_ejemplo,

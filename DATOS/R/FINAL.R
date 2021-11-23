@@ -2,7 +2,27 @@ library(reshape)
 library(readr)
 library(corrplot)
 library(MASS)
+library(psych)
 
+
+#Gráficos para todas las comunas
+covid_df <- read_csv("DATOS/CSV/covid_table1008.csv")
+
+#Se eliminan las columnas que no se usarán
+covid_df = covid_df[,-c(4,5,9:12,14,16,17,19,20)]
+
+
+covid_df = rename(covid_df, c(tasa_max_contagios="tasa_max", DENSIDAD="densidad",P_POB="p_pob", SEMANA_Entro="sem_cuar",P_HACINAMIENTO="p_hacina",P_HACINAMIENTO_C="p_hacina_c", var_salidas="IVS"))
+corr_covid  = cor(covid_df[,4:10])
+corrplot(corr_covid,method = "color",
+         addgrid.col = 'white',
+         addCoef.col = 'white',
+         type = "upper", tl.cex = 0.7, number.cex = 0.6)
+
+#scatter plots
+pairs.panels(df_sem20[,4:10], pch = 19,  cex = 0.5, hist.col = "light blue", cor = FALSE, cex.labels = 2)
+
+#Se eliminan las de final csv
 final= df_sem20
 final$semana_max=NULL
 final$`SEM INICIO`=NULL
@@ -17,7 +37,10 @@ final$EST_POB=NULL
 final$sem_max_posi=NULL
 final= rename(final,c(tasa_max_contagios="tasa_max", DENSIDAD="densidad",P_POB="p_pob", SEMANA_Entro="sem_cuar",P_HACINAMIENTO="p_hacina",P_HACINAMIENTO_C="p_hacina_c", var_salidas="IVS"))
 corr_final = cor(final[,4:10])
-corrplot(corr_final,method = "pie", type = "upper", tl.cex = 0.7, number.cex = 0.6)
+corrplot(corr_final,method = "color",
+         addgrid.col = 'white',
+         addCoef.col = 'white',
+         type = "upper", tl.cex = 0.7, number.cex = 0.6)
 
 final = read_csv("final.csv")
 
